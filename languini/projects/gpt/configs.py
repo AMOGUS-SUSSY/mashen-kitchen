@@ -58,7 +58,7 @@ def load_config(name=None):
         # data
         data_root = "../encoded_data",
         relative_log_path = "logs",         # Relative path to the log folder within the project folder languini-kitchen/projects/gpt/logs/
-        dataset = "wsonly_16384",
+        dataset = "suf_16384",
         vocab_size = 16384,
         debug = False,                      # simply adds a "_debug" suffix so logs are easily distinguishable
 
