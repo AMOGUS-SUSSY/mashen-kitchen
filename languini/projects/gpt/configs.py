@@ -56,7 +56,7 @@ def load_config(name=None):
 
     c = Munch(
         # data
-        data_root = "../encoded_data",
+        data_root = "data/mashen/",
         relative_log_path = "logs",         # Relative path to the log folder within the project folder languini-kitchen/projects/gpt/logs/
         dataset = "suf_16384",
         vocab_size = 16384,
