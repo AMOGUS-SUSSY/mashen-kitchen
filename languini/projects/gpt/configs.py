@@ -63,7 +63,7 @@ def load_config(name=None):
         debug = False,                      # simply adds a "_debug" suffix so logs are easily distinguishable
 
         # optimiser
-        seed = 0,
+        seed = 1,
         gradient_accumulation_steps = 1,    # number of batches before doing a gradient step
         train_batch_size = 16,              # make sure batch sizes are an integer multiple of the number of workers
         eval_batch_size = 16,
