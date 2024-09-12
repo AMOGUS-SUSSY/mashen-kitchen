@@ -30,23 +30,14 @@ def tokenize_file(args):
     Args:
         args (tuple): A tuple containing a SentencePiece model, the path of the input file, and the output directory path.
     """
-    sp, path, output_folder, spm_model_path = args
+    sp, path, output_folder = args
     outpath = os.path.join(output_folder, "files", os.path.splitext(os.path.basename(path))[0] + ".npy")  # save as .npy
+    
+    with open(path, 'r') as f:
+        text = f.read()
         
-    subprocess.run(["spm_encode", "--input="+path, "--model="+spm_model_path, "--output=output.txt", "--output_format=id"])
-
-    with open("output.txt", 'r', encoding="utf8") as out:
-        encoded = out.read()
-
-    numbers = []
-    for n in encoded.split():
-        n = n.rstrip("\x00")
-        if n != '':
-            numbers.append(int(n))
-
-    data = np.asarray(numbers, dtype=get_dtype(sp.GetPieceSize()))
+    data = np.asarray(sp.EncodeAsIds(text), dtype=get_dtype(sp.GetPieceSize()))
     np.save(outpath, data)
-    out.close()
 
 
 def get_dtype(vocab_size):
