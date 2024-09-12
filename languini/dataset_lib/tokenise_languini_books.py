@@ -36,10 +36,10 @@ def tokenize_file(args):
     with open(path, 'r') as f:
         text = f.read()
     
-    with open("input.txt", 'w') as temp:
-        temp.write(text)
+    with open("input.txt", 'w') as input:
+        input.write(text)
         
-    subprocess.run(["spm_encode", "input=input.txt", "--model="+spm_model_path, "--output=output.txt", "--output_format=id"])
+    subprocess.run(["spm_encode", "--input=input.txt", "--model="+spm_model_path, "--output=output.txt", "--output_format=id"])
 
     with open("output.txt", 'r') as out:
         encoded = out.read()
