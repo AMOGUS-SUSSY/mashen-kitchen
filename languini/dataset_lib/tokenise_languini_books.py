@@ -17,6 +17,7 @@ import csv
 import argparse
 import numpy as np
 import sentencepiece as spm
+import subprocess
 
 from concurrent.futures import ProcessPoolExecutor
 from tqdm import tqdm
@@ -35,7 +36,8 @@ def tokenize_file(args):
     with open(path, 'r') as f:
         text = f.read()
         
-    data = np.asarray(sp.EncodeAsIds(sp.Normalize(text)), dtype=get_dtype(sp.GetPieceSize()))
+    encoded = subprocess.run(["smp_encode", "input='"+text+"'", "--model="+args.spm_model, "--output_format=id"], capture_output=True)
+    data = np.asarray(encoded, dtype=get_dtype(sp.GetPieceSize()))
     np.save(outpath, data)
 
 
