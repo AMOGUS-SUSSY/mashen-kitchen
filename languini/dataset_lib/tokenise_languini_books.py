@@ -42,7 +42,7 @@ def tokenize_file(args):
     subprocess.run(["spm_encode", "--input=input.txt", "--model="+spm_model_path, "--output=output.txt", "--output_format=id"])
 
     numbers = []
-    with open("output.txt", 'r', encoding="utf16") as out:
+    with open("output.txt", 'r', encoding="utf8") as out:
         for line in out :
             line = line.replace("\n"," ")
             if line != '' :
