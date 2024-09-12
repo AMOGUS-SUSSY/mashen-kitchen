@@ -30,13 +30,13 @@ def tokenize_file(args):
     Args:
         args (tuple): A tuple containing a SentencePiece model, the path of the input file, and the output directory path.
     """
-    sp, path, output_folder = args
+    sp, path, output_folder, spm_model_path = args
     outpath = os.path.join(output_folder, "files", os.path.splitext(os.path.basename(path))[0] + ".npy")  # save as .npy
     
     with open(path, 'r') as f:
         text = f.read()
         
-    encoded = subprocess.run(["smp_encode", "input='"+text+"'", "--model="+args.spm_model, "--output_format=id"], capture_output=True)
+    encoded = subprocess.run(["smp_encode", "input='"+text+"'", "--model="+spm_model_path, "--output_format=id"], capture_output=True)
     data = np.asarray(encoded, dtype=get_dtype(sp.GetPieceSize()))
     np.save(outpath, data)
 
@@ -133,7 +133,7 @@ def main(books3_dir, spm_model_path, split_npy_file, output_dir):
 
     # Tokenise 
     print("Tokenise all files ...")
-    args = [(sp, path, output_folder) for path in books3_file_paths]
+    args = [(sp, path, output_folder, spm_model_path) for path in books3_file_paths]
     with ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
         list(tqdm(executor.map(tokenize_file, args), total=len(books3_file_paths)))
     
