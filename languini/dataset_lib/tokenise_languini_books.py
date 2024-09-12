@@ -39,7 +39,7 @@ def tokenize_file(args):
         encoded = out.read()
 
     encoded.replace("\n", " ")
-    numbers = [int(n) for n in encoded.rstrip("\x00").split()]
+    numbers = [int(n.rstrip("\x00")) for n in encoded.split(" ")]
 
     data = np.asarray(numbers, dtype=get_dtype(sp.GetPieceSize()))
     np.save(outpath, data)
