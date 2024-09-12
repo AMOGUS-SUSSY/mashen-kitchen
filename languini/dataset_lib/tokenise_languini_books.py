@@ -46,7 +46,7 @@ def tokenize_file(args):
         for line in out :
             line = line.replace("\n"," ")
             line.rstrip("\x00")
-            for n in line.strip().split() :
+            for n in line.strip().split(" ") :
                 numbers.append(int(n))
 
     data = np.asarray(numbers, dtype=get_dtype(sp.GetPieceSize()))
