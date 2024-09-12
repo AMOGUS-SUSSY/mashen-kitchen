@@ -39,7 +39,7 @@ def tokenize_file(args):
     with open("temp.txt", 'w') as temp:
         temp.write(text)
         
-    encoded = subprocess.run(["spm_encode", "input=temp.txt", "--model="+spm_model_path, "--output_format=id"], capture_output=True)
+    encoded = subprocess.run(["spm_encode", "input=temp.txt", "--model="+spm_model_path, "--output_format=id"], capture_output=True, text=True).stdout
     data = np.asarray(encoded, dtype=get_dtype(sp.GetPieceSize()))
     np.save(outpath, data)
 
