@@ -38,6 +38,7 @@ def tokenize_file(args):
     with open("output.txt", 'r', encoding="utf8") as out:
         encoded = out.read()
 
+    encoded.replace("\n", " ")
     numbers = [int(n) for n in encoded.rstrip("\x00").split()]
 
     data = np.asarray(numbers, dtype=get_dtype(sp.GetPieceSize()))
