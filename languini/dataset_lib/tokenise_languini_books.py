@@ -43,6 +43,8 @@ def tokenize_file(args):
 
     with open("output.txt", 'r') as out:
         encoded = out.read()
+    
+    encoded = encoded.replace("\n", " ")
 
     data = np.asarray(encoded, dtype=get_dtype(sp.GetPieceSize()))
     np.save(outpath, data)
