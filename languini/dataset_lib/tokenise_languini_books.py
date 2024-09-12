@@ -140,8 +140,7 @@ def main(books3_dir, spm_model_path, split_npy_file, output_dir):
 
     # Tokenise 
     print("Tokenise all files ...")
-    args = [(sp, path, output_folder) for path in books3_file_paths]
-    args = (args,spm_model_path)
+    args = [(sp, path, output_folder,spm_model_path) for path in books3_file_paths]
     with ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
         list(tqdm(executor.map(tokenize_file, args), total=len(books3_file_paths)))
     
