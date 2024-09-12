@@ -45,6 +45,7 @@ def tokenize_file(args):
     with open("output.txt", 'r', encoding="utf8") as out:
         for line in out :
             line = line.replace("\n"," ")
+            line.rstrip("\x00")
             for n in line.strip().split() :
                 numbers.append(int(n))
 
