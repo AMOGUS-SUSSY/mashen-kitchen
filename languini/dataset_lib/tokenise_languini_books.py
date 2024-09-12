@@ -41,16 +41,13 @@ def tokenize_file(args):
         
     subprocess.run(["spm_encode", "--input=input.txt", "--model="+spm_model_path, "--output=output.txt", "--output_format=id"])
 
-    numbers = []
     with open("output.txt", 'r', encoding="utf8") as out:
-        for line in out :
-            line = line.replace("\n"," ")
-            line.rstrip("\x00")
-            for n in line.strip().split(" ") :
-                if n != "" : 
-                    numbers.append(int(n))
+        encoded = out.read()
 
-    data = np.asarray(numbers, dtype=get_dtype(sp.GetPieceSize()))
+    encoded = encoded.rstrip("\x00")
+    encoded = encoded.split()
+
+    data = np.asarray(encoded, dtype=get_dtype(sp.GetPieceSize()))
     np.save(outpath, data)
 
 
