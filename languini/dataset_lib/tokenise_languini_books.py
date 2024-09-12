@@ -35,7 +35,7 @@ def tokenize_file(args):
     with open(path, 'r') as f:
         text = f.read()
         
-    data = np.asarray(sp.EncodeAsIds(text), dtype=get_dtype(sp.GetPieceSize()))
+    data = np.asarray(sp.EncodeAsIds(sp.Normalize(text)), dtype=get_dtype(sp.GetPieceSize()))
     np.save(outpath, data)
 
 
