@@ -40,12 +40,13 @@ def tokenize_file(args):
 
     numbers = []
     for n in encoded.split():
-        n.rstrip("\x00")
+        n = n.rstrip("\x00")
         if n != '':
             numbers.append(int(n))
 
     data = np.asarray(numbers, dtype=get_dtype(sp.GetPieceSize()))
     np.save(outpath, data)
+    out.close()
 
 
 def get_dtype(vocab_size):
