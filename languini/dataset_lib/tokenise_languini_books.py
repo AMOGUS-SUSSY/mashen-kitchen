@@ -32,22 +32,15 @@ def tokenize_file(args):
     """
     sp, path, output_folder, spm_model_path = args
     outpath = os.path.join(output_folder, "files", os.path.splitext(os.path.basename(path))[0] + ".npy")  # save as .npy
-    
-    with open(path, 'r') as f:
-        text = f.read()
-    
-    with open("input.txt", 'w') as input:
-        input.write(text)
         
-    subprocess.run(["spm_encode", "--input=input.txt", "--model="+spm_model_path, "--output=output.txt", "--output_format=id"])
+    subprocess.run(["spm_encode", "--input="+path, "--model="+spm_model_path, "--output=output.txt", "--output_format=id"])
 
     with open("output.txt", 'r', encoding="utf8") as out:
         encoded = out.read()
 
-    encoded = encoded.rstrip("\x00")
-    encoded = encoded.split()
+    numbers = [int(n) for n in encoded.rstrip("\x00").split()]
 
-    data = np.asarray(encoded, dtype=get_dtype(sp.GetPieceSize()))
+    data = np.asarray(numbers, dtype=get_dtype(sp.GetPieceSize()))
     np.save(outpath, data)
 
 
