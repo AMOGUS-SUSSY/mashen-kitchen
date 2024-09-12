@@ -44,7 +44,8 @@ def tokenize_file(args):
     numbers = []
     with open("output.txt", 'r') as out:
         for line in out :
-            numbers.append([int(n) for n in line.strip().split('')])
+            if line != '' :
+                numbers.append([int(n) for n in line.strip().split('')])
 
     data = np.asarray(numbers, dtype=get_dtype(sp.GetPieceSize()))
     np.save(outpath, data)
