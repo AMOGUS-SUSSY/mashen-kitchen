@@ -22,7 +22,8 @@ def main(data_root,vocab_size, output):
     open(output, 'w')
     with open(output, 'a') as out:
         for element in tqdm(c.most_common(vocab_size)):
-            out.write(element + "\n")
+            out.write(element)
+            out.write('\n')
     print("DONE")
 
 if __name__ == "__main__":
