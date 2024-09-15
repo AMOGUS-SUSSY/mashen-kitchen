@@ -30,8 +30,8 @@ def doublews(args) :
 
     with open("out.txt", 'r') as file:
         output = file.read()
+    output += " "
     file.close()
-    os.remove("out.txt")
 
     numbers = []
     for n in output.split():
