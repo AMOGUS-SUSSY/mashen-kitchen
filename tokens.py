@@ -17,7 +17,7 @@ def main(data_root,vocab_size):
     print("Counting...")
     for root, dirs, files in os.walk(data_root):
         for file in tqdm(files):
-            c.update(count(np.load(os.path.join(data_root,file))))
+            c.update(count(os.path.join(data_root,file)))
     print("Writing...")
     with open("output.txt", 'a') as out:
         for element in c.most_common(vocab_size):
