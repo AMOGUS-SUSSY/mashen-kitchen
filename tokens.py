@@ -15,7 +15,7 @@ def count(file):
 def main(data_root,vocab,vocab_size, output):
     c = Counter()
     print("Counting...")
-    for root, dirs, files in os.walk(data_root):
+    for root, dirs, files in tqdm(os.walk(data_root)):
         for file in tqdm(files):
             c.update(count(os.path.join(data_root,file)))
     print("Writing...")
