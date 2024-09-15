@@ -1,6 +1,7 @@
 import os
 import numpy as np
 import argparse
+import tqdm
 from collections import Counter
 
 # RUN FROM MASHEN KITCHEN
@@ -13,7 +14,7 @@ def count(file):
 
 def main(data_root,vocab_size):
     c = Counter()
-    for root, dirs, files in os.walk(data_root):
+    for root, dirs, files in tqdm(list(os.walk(data_root))):
         for file in files:
             c.update(count(np.load(os.path.join(data_root,file))))
     with open("output.txt", 'a') as out:
