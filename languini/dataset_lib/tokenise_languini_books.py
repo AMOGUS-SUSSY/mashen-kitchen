@@ -22,6 +22,24 @@ import subprocess
 from concurrent.futures import ProcessPoolExecutor
 from tqdm import tqdm
 
+def doublews(args, spm_model) :
+    sp, path, output_folder = args
+    outpath = os.path.join(output_folder, "files", os.path.splitext(os.path.basename(path))[0] + ".npy")
+
+    subprocess.run(["spm_encode","--input="+spm_model,"--output=out.txt","--output_format=id"])
+
+    with open("out.txt", 'r') as file:
+        output = file.read()
+
+    output = output.replace(b"\r\n", b"\n")
+    output = output.replace(b"\n",b" ")
+    output = output.strip()
+    numbers = [int(n) for n in output.split()]
+
+    data = np.asarray(numbers, dtype=get_dtype(sp.GetPieceSize()))
+    np.save(outpath, data)
+
+
 
 def tokenize_file(args):
     """
@@ -134,7 +152,7 @@ def main(books3_dir, spm_model_path, split_npy_file, output_dir):
     print("Tokenise all files ...")
     args = [(sp, path, output_folder) for path in books3_file_paths]
     with ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
-        list(tqdm(executor.map(tokenize_file, args), total=len(books3_file_paths)))
+        list(tqdm(executor.map(doublews, args, spm_model_path), total=len(books3_file_paths)))
     
     # Validate and get book names and lengths
     print("Checking tokenised files ...")
