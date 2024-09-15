@@ -34,7 +34,7 @@ def doublews(args) :
     output = output.replace('\r\n', '\n')
     output = output.replace('\n',' ')
     numbers = []
-    for n in output.split():
+    for n in output.split(' '):
         n=n.strip('\x00')
         if n != '':
             numbers.append(int(n))
