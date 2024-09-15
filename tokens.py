@@ -12,14 +12,15 @@ def count(file):
     c = Counter(tokens)
     return c
 
-def main(data_root,vocab_size):
+def main(data_root,vocab_size, output):
     c = Counter()
     print("Counting...")
     for root, dirs, files in os.walk(data_root):
         for file in tqdm(files):
             c.update(count(os.path.join(data_root,file)))
     print("Writing...")
-    with open("output.txt", 'a') as out:
+    open(output, 'w')
+    with open(output, 'a') as out:
         for element in tqdm(c.most_common(vocab_size)):
             out.write(element + "\n")
     print("DONE")
@@ -29,6 +30,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--data_root", required=True, help="path to all the tokenised files")
     parser.add_argument("--vocab_size", required=True, type=int, help="vocabulary size")
+    parser.add_argument("--output", required=True, help="file to write stuff into")
     args = parser.parse_args()
 
-main(args.data_root, args.vocab_size)
+main(args.data_root, args.vocab_size, args.output)
