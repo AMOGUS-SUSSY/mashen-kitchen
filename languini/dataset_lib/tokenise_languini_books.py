@@ -26,14 +26,16 @@ def doublews(args) :
     sp, path, output_folder, spm_model = args
     outpath = os.path.join(output_folder, "files", os.path.splitext(os.path.basename(path))[0] + ".npy")
 
-    subprocess.run(["spm_encode", "--input="+path, "--model="+spm_model, "--output_format=id", "--output=out.txt"])
+    filename = os.path.basename(path)
+    open(filename + ".txt", 'w')
 
-    open("out.txt", 'w')
-    with open("out.txt", 'r') as file:
+    subprocess.run(["spm_encode", "--input="+path, "--model="+spm_model, "--output_format=id", "--output="+filename+".txt"])
+
+    with open(filename + ".txt", 'r') as file:
         output = file.read()
     output += " "
     file.close()
-    os.remove("out.txt")
+    os.remove(filename + ".txt")
 
     numbers = []
     for n in output.split():
