@@ -20,8 +20,9 @@ def main(data_root,vocab_size):
             c.update(count(os.path.join(data_root,file)))
     print("Writing...")
     with open("output.txt", 'a') as out:
-        for element in c.most_common(vocab_size):
+        for element in tqdm(c.most_common(vocab_size)):
             out.write(element + "\n")
+    print("DONE")
 
 if __name__ == "__main__":
     # Use argparse to get command line arguments
