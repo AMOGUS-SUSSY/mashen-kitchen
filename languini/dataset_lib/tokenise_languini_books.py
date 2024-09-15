@@ -26,7 +26,7 @@ def doublews(args, spm_model) :
     sp, path, output_folder = args
     outpath = os.path.join(output_folder, "files", os.path.splitext(os.path.basename(path))[0] + ".npy")
 
-    subprocess.run(["spm_encode","--input="+spm_model,"--output=out.txt","--output_format=id"])
+    subprocess.run(["spm_encode","--model="+spm_model, "--input="+path,"--output_format=id","--output=out.txt"])
 
     with open("out.txt", 'r') as file:
         output = file.read()
