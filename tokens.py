@@ -28,7 +28,7 @@ if __name__ == "__main__":
     # Use argparse to get command line arguments
     parser = argparse.ArgumentParser()
     parser.add_argument("--data_root", required=True, help="path to all the tokenised files")
-    parser.add_argument("--vocab_size", required=True, help="vocabulary size")
+    parser.add_argument("--vocab_size", required=True, type=int, help="vocabulary size")
     args = parser.parse_args()
 
 main(args.data_root, args.vocab_size)
