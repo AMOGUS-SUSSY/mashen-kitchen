@@ -1,7 +1,7 @@
 import os
 import numpy as np
 import argparse
-import tqdm
+from tqdm import tqdm
 from collections import Counter
 
 # RUN FROM MASHEN KITCHEN
