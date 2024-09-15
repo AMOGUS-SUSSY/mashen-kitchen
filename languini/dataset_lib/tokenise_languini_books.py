@@ -31,8 +31,8 @@ def doublews(args) :
     with open("out.txt", 'r') as file:
         output = file.read()
 
-    output = output.replace(b"\r\n", b"\n")
-    output = output.replace(b"\n",b" ")
+    output = output.replace("\r\n", "\n")
+    output = output.replace("\n"," ")
     output = output.strip()
     numbers = [int(n) for n in output.split()]
 
