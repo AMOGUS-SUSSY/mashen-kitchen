@@ -28,10 +28,12 @@ def doublews(args) :
 
     subprocess.run(["spm_encode", "--input="+path, "--model="+spm_model, "--output_format=id", "--output=out.txt"])
 
+    open("out.txt", 'w')
     with open("out.txt", 'r') as file:
         output = file.read()
     output += " "
     file.close()
+    os.remove("out.txt")
 
     numbers = []
     for n in output.split():
