@@ -31,10 +31,13 @@ def doublews(args) :
     with open("out.txt", 'r') as file:
         output = file.read()
 
-    output = output.replace("\r\n", "\n")
-    output = output.replace("\n"," ")
-    output = output.strip()
-    numbers = [int(n) for n in output.split()]
+    output = output.replace('\r\n', '\n')
+    output = output.replace('\n',' ')
+    numbers = []
+    for n in output.split():
+        n=n.strip('\x00')
+        if n != '':
+            numbers.append(int(n))
 
     data = np.asarray(numbers, dtype=get_dtype(sp.GetPieceSize()))
     np.save(outpath, data)
