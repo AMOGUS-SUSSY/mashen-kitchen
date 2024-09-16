@@ -46,7 +46,7 @@ def doublews(args) :
     with open(filename + ".txt", 'r') as file:
         output = file.read()
     output += " "
-    output.replace("\n",lineID)
+    output = output.replace('\n',lineID)
     file.close()
     os.remove(filename + ".txt")
 
