@@ -30,6 +30,7 @@ def getID(spm_model):
     lines = vocab.readlines()
     for i in range(len(lines)):
         if lines[i].strip('\n') == '<0x0A>':
+            print(str(i))
             return str(i)
 
 def doublews(args) :
