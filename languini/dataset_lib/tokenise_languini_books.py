@@ -25,7 +25,7 @@ from tqdm import tqdm
 VOCAB = "languini/vocabs/spm_models/"
 
 def getID(spm_model):
-    vocab_path = os.path.splitext(os.path.basename(spm_model))[0] + ".vocab"
+    vocab_path = os.path.join(VOCAB,os.path.splitext(os.path.basename(spm_model))[0] + ".vocab")
     vocab = open(vocab_path, 'r')
     lines = vocab.readlines()
     for i in range(len(lines)):
