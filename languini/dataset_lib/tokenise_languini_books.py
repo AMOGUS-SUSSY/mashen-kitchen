@@ -22,9 +22,20 @@ import subprocess
 from concurrent.futures import ProcessPoolExecutor
 from tqdm import tqdm
 
+VOCAB = "languini/vocabs/spm_models/"
+
+def getID(spm_model):
+    vocab_path = os.path.splitext(os.path.basename(spm_model))[0] + ".vocab"
+    vocab = open(vocab_path, 'r')
+    lines = vocab.readlines()
+    for i in range(len(lines)):
+        if lines[i].strip('\n') == '<0x0A>':
+            return str(i)
+
 def doublews(args) :
     sp, path, output_folder, spm_model = args
     outpath = os.path.join(output_folder, "files", os.path.splitext(os.path.basename(path))[0] + ".npy")
+    lineID = ' ' + getID(spm_model) + ' '
 
     filename = os.path.basename(path)
     open(filename + ".txt", 'w')
@@ -34,6 +45,7 @@ def doublews(args) :
     with open(filename + ".txt", 'r') as file:
         output = file.read()
     output += " "
+    output.replace('\n',lineID)
     file.close()
     os.remove(filename + ".txt")
 
